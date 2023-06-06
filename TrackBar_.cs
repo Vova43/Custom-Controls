@@ -7,9 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WpfApplication5
-{
-    class Class4 : System.Windows.Forms.Control
+public class TrackBar_ : System.Windows.Forms.Control
     {
         public Color Col { get; set; }
 
@@ -247,4 +245,3 @@ namespace WpfApplication5
             }
         }
     }
-}
