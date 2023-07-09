@@ -10,6 +10,7 @@ public class Button_ : System.Windows.Forms.Control
 {
     private StringFormat Sf = new StringFormat();
     private bool MouseEnter_ = false;
+    public bool MouseEnter__ = true;
     private bool MouseDown_ = false;
     public Button_()
     {
@@ -39,13 +40,13 @@ public class Button_ : System.Windows.Forms.Control
         g.DrawRectangle(new Pen(BackColor), Rectangle_);
         g.FillRectangle(new SolidBrush(BackColor), Rectangle_);
 
-        if (MouseEnter_)
+        if (MouseEnter_ && MouseEnter__)
         {
             g.DrawRectangle(new Pen(Color.FromArgb(60, Color.White)), Rectangle_);
             g.FillRectangle(new SolidBrush(Color.FromArgb(60, Color.White)), Rectangle_);
         }
 
-        if (MouseDown_)
+        if (MouseDown_ && MouseEnter__)
         {
             g.DrawRectangle(new Pen(Color.FromArgb(30, Color.Black)), Rectangle_);
             g.FillRectangle(new SolidBrush(Color.FromArgb(30, Color.Black)), Rectangle_);

@@ -21,11 +21,11 @@ public class TrackBar_ : System.Windows.Forms.Control
         private bool Start_Value_Set_ = true;
 
 
-        public decimal Value { get; set; }
+        public float Value { get; set; }
 
-        public decimal Maximum { get; set; }
+        public float Maximum { get; set; }
 
-        public decimal Minimum { get; set; }
+        public float Minimum { get; set; }
 
         public int ScrollLeft { get; set; }
         public int ScrollHeight { get; set; }
@@ -38,7 +38,7 @@ public class TrackBar_ : System.Windows.Forms.Control
         public Color RectanglePanelColorTab { get; set; }
         public Color RectangleSliderColor { get; set; }
 
-        public Class4()
+        public TrackBar_()
         {
             InitializeComponent();
             Size = new Size(80, 20);
@@ -72,7 +72,7 @@ public class TrackBar_ : System.Windows.Forms.Control
             Graphics g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.Default;
 
-            Rectangle RectanglePanel = new Rectangle(0, 0, Width - 1, Height - 1);
+            Rectangle RectanglePanel = new Rectangle(0, 0, Width, Height);
             g.FillRectangle(new SolidBrush(RectanglePanelColor), RectanglePanel);
             if (SelectTab_)
                 g.DrawRectangle(new Pen(RectanglePanelColorTab), RectanglePanel);
