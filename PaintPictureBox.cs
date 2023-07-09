@@ -66,7 +66,8 @@ public class PaintPictureBox : UserControl
             {
                 SourceImageWidth = value.Width;
                 SourceImageHeight = value.Height;
-                visibleCenter = new PointF(SourceImageWidth / 2f, SourceImageHeight / 2f);
+                visibleCenter = new PointF(SourceImageWidth / 2F, SourceImageHeight / 2F);
+                //ZoomImage = ((SourceImageWidth) / Width) + ((SourceImageHeight) / Height);
             }
 
             Invalidate();
@@ -112,17 +113,17 @@ public class PaintPictureBox : UserControl
         if (e.Button == MouseButtons.Left)
         {
             MouseStateControl = MouseState.Paint;
-            var dx = (e.X - ClientSize.Width / 2f) / ZoomImage + visibleCenter.X;
-            var dy = (e.Y - ClientSize.Height / 2f) / ZoomImage + visibleCenter.Y;
+            int dx = (int)((e.X - ClientSize.Width / 2F) / ZoomImage + visibleCenter.X);
+            int dy = (int)((e.Y - ClientSize.Height / 2F) / ZoomImage + visibleCenter.Y);
             if (dx < 0)
                 return;
-            if (dx > ImageBitMap.Width)
+            if (dx > ImageBitMap.Width - 1)
                 return;
             if (dy < 0)
                 return;
-            if (dy > ImageBitMap.Height)
+            if (dy > ImageBitMap.Height - 1)
                 return;
-            ImageBitMap.SetPixel((int)dx, (int)dy, ForeColor);
+            ImageBitMap.SetPixel(dx, dy, ForeColor);
             Invalidate();
         }
 
@@ -156,17 +157,17 @@ public class PaintPictureBox : UserControl
 
         if (MouseStateControl == MouseState.Paint)
         {
-            var dx = (e.X - ClientSize.Width / 2f) / ZoomImage + visibleCenter.X;
-            var dy = (e.Y - ClientSize.Height / 2f) / ZoomImage + visibleCenter.Y;
+            int dx = (int)((e.X - ClientSize.Width / 2F) / ZoomImage + visibleCenter.X);
+            int dy = (int)((e.Y - ClientSize.Height / 2F) / ZoomImage + visibleCenter.Y);
             if (dx < 0)
                 return;
-            if (dx > ImageBitMap.Width)
+            if (dx > ImageBitMap.Width - 1)
                 return;
             if (dy < 0)
                 return;
-            if (dy > ImageBitMap.Height)
+            if (dy > ImageBitMap.Height - 1)
                 return;
-            ImageBitMap.SetPixel((int)dx, (int)dy, ForeColor);
+            ImageBitMap.SetPixel(dx, dy, ForeColor);
             Invalidate();
         }
     }
@@ -201,13 +202,14 @@ public class PaintPictureBox : UserControl
             e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
         }
 
-        var dx = (0 - visibleCenter.X) * ZoomImage + ClientSize.Width / 2f;
-        var dy = (0 - visibleCenter.Y) * ZoomImage + ClientSize.Height / 2f;
+        var dx = (0 - visibleCenter.X) * ZoomImage + ClientSize.Width / 2F;
+        var dy = (0 - visibleCenter.Y) * ZoomImage + ClientSize.Height / 2F;
 
         e.Graphics.DrawImage(ImageBitMap, dx, dy, ImageBitMap.Width * ZoomImage, ImageBitMap.Height * ZoomImage);
 
-        Rectangle Rectangle_ = new Rectangle((int)dx, (int)dy, (int)(ImageBitMap.Width * ZoomImage), (int)(ImageBitMap.Height * ZoomImage));
-        e.Graphics.DrawRectangle(new Pen(BorderColor), Rectangle_);
+        Pen pen = new Pen(BorderColor);
+        e.Graphics.DrawRectangle(pen, dx, dy, (ImageBitMap.Width * ZoomImage), (ImageBitMap.Height * ZoomImage));
+        pen.Dispose();
 
         base.OnPaint(e);
     }
@@ -224,15 +226,15 @@ public class PaintPictureBox : UserControl
 
     public PointF ClientToImagePoint(PointF point)
     {
-        var dx = (point.X - ClientSize.Width / 2f) / ZoomImage + visibleCenter.X;
-        var dy = (point.Y - ClientSize.Height / 2f) / ZoomImage + visibleCenter.Y;
+        var dx = (point.X - ClientSize.Width / 2F) / ZoomImage + visibleCenter.X;
+        var dy = (point.Y - ClientSize.Height / 2F) / ZoomImage + visibleCenter.Y;
         return new PointF(dx, dy);
     }
 
     public PointF ImagePointToClient(PointF point)
     {
-        var dx = (point.X - visibleCenter.X) * ZoomImage + ClientSize.Width / 2f;
-        var dy = (point.Y - visibleCenter.Y) * ZoomImage + ClientSize.Height / 2f;
+        var dx = (point.X - visibleCenter.X) * ZoomImage + ClientSize.Width / 2F;
+        var dy = (point.Y - visibleCenter.Y) * ZoomImage + ClientSize.Height / 2F;
         return new PointF(dx, dy);
     }
 
