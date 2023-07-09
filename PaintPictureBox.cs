@@ -206,7 +206,7 @@ public class PaintPictureBox : UserControl
 
         e.Graphics.DrawImage(ImageBitMap, dx, dy, ImageBitMap.Width * ZoomImage, ImageBitMap.Height * ZoomImage);
 
-        Rectangle Rectangle_ = new Rectangle((int)dx - 1, (int)dy - 1, (int)(ImageBitMap.Width * ZoomImage) + 1, (int)(ImageBitMap.Height * ZoomImage) + 1);
+        Rectangle Rectangle_ = new Rectangle((int)dx, (int)dy, (int)(ImageBitMap.Width * ZoomImage), (int)(ImageBitMap.Height * ZoomImage));
         e.Graphics.DrawRectangle(new Pen(BorderColor), Rectangle_);
 
         base.OnPaint(e);
