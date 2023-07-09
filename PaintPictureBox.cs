@@ -48,7 +48,7 @@ public class PaintPictureBox : UserControl
         BorderColor = Color.White;
     }
 
-    [DefaultValue(new Bitmap(16, 16))]
+    [DefaultValue(null)]
     public Bitmap Image
     {
         get { return ImageBitMap; }
