@@ -50,7 +50,7 @@ namespace WindowsFormsApplication23_Paint
             BorderColor = Color.White;
         }
 
-        [DefaultValue(null)]
+        [DefaultValue(new Bitmap(16, 16))]
         public Bitmap Image
         {
             get { return ImageBitMap; }
